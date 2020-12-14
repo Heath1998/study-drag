@@ -1,0 +1,132 @@
+<template>
+  <div>
+    <el-container class="editor">
+      <el-header>
+        <t-header/>
+      </el-header>
+      <el-container>
+        <el-aside class="leftAside">
+         <left-panel></left-panel>
+        </el-aside>
+
+        <el-container>
+          <el-header height="30px">
+
+          </el-header>
+          <el-main>
+            <phone-frame></phone-frame>
+          </el-main>
+          <el-footer></el-footer>
+        </el-container>
+
+        <el-aside class="rightAside">
+          <div>
+            <right-panel></right-panel>
+            <div @click="fold" :class="foldClass">
+              <i :class="iconClass"></i>
+            </div>
+          </div>
+        </el-aside>
+      </el-container>
+    </el-container>
+  </div>
+</template>
+
+<script>
+import THeader from "@/components/sub/header.vue";
+import LeftPanel from "@/components/sub/LeftPanel.vue";
+import PhoneFrame from "@/components/sub/PhoneFrame.vue";
+import RightPanel from "@/components/sub/rightPanel.vue";
+
+export default {
+  name: 'editor',
+  components: {
+    THeader,
+    LeftPanel,
+    PhoneFrame,
+    RightPanel,
+    RightPanel
+  },
+  computed: {
+    iconClass() {
+      return this.$store.state.rightPanelClass.iconClass;
+    },
+    foldClass() {
+      return this.$store.state.rightPanelClass.foldClass;
+    },
+  },
+  methods: {
+    fold: function () {
+      this.$store.commit("rightPanelFold");
+    },
+  }
+}
+</script>
+    PhoneFrame
+
+<style>
+#app,
+body {
+  overflow: hidden;
+}
+* {
+  margin: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+.leftAside {
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12);
+}
+.rightAside {
+  background-color: #f8f8f8;
+  overflow: hidden;
+}
+.rightFold {
+  background-color: white;
+  height: 80px;
+  width: 20px;
+  position: absolute;
+  right: 300px;
+  top: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.5s ease-in-out 0s;
+}
+.rightFold:hover {
+  color: blue;
+}
+.leftFold {
+  background-color: white;
+  height: 80px;
+  width: 20px;
+  position: absolute;
+  right: 0px;
+  top: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.5s ease-in-out 0s;
+}
+.leftFold:hover {
+  color: blue;
+}
+
+.el-header {
+  background-color: white;
+  line-height: 60px;
+  text-align: center;
+  border-bottom: #c8c7cc solid 1px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12);
+}
+.el-aside {
+  color: #333;
+  text-align: center;
+  height: calc(100vh - 60px);
+}
+.editor {
+  background-color: #f8f8f8;
+}
+</style>
